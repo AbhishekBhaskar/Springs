@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: userForm
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Abhishek.i.b
+Implementation-Vendor-Id: com.uForm
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/userForm
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,97 @@
+body,html
+{
+	
+	height: 100%;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(to top,rgba(29, 89, 186,0.6),rgba(70, 114, 186,0.5),rgba(123, 155, 206,0.4),rgba(215, 225, 242,0.4));
+	background-size: cover;
+	overflow: scroll;
+}
+
+.navbar
+{
+	overflow: hidden;
+	background-image: linear-gradient(to bottom,rgba(66, 134, 244,0.9),rgba(66, 134, 244,0.1));
+	background-blend-mode: lighten;
+	
+}
+
+.navbar .nav_right
+{
+	float: right;
+	
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    padding: 5px 5px;
+    text-decoration: none;
+	position: relative;
+	/*background-color:rgba(2,73,95,1.00);*/
+	
+	border-radius: 3px;
+}
+
+ .navbar .navbar_brand
+{
+	font-size: 24px;
+	float: left;
+	-webkit-transition: 1s;
+	text-decoration: none;
+}
+
+.navbar_brand:hover
+{
+	font-size: 28px;
+}
+
+.userForm
+{
+	padding: 20px;
+	width: 50%;
+	margin: 80px;
+	margin-left: 25%;
+	border: 1px solid rgba(120,120,120,1.00);
+	box-sizing: border-box;
+	border-radius: 5px;
+	background-color: rgba(0,0,0,0.2);
+}
+
+.lab
+{
+	font-size: 24px;
+	color: rgba(0,24,116,1.00);
+	padding: 4px;
+}
+
+.formctl
+{
+	width:80%;
+	border: 1px solid rgba(120,120,120,1.00);
+	border-radius: 5px;
+	height: 28px;
+	padding: 4px;
+}
+.fc
+{
+	width:40%;
+	border: 1px solid rgba(120,120,120,1.00);
+	border-radius: 6px;
+	height: 28px;
+	padding: 4px;
+}
+.formGroup
+{
+	padding:21px;
+}
+
+.sub
+{
+	width:auto;
+	height:auto;
+	padding: 6px;
+	font-size: 20px;
+	cursor: pointer;
+	text-align: center;
+	border: 1px solid rgba(120,120,120,1.00);
+	border-radius: 5px;
+}
