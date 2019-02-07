@@ -1,0 +1,33 @@
+$output.resource("application.yml")##
+---
+#
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+#
+
+server:
+    port: 8089
+
+security:
+    basic:
+        enabled: false
+
+# Note: the properties surounded by arobase are defined in the pom.xml file
+#       and get replaced by maven during build time. Resulting file can
+#       be found in target/classes folder
+
+spring:
+
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://10.16.70.167:3306/ivumetastore?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+        username: root
+        password: password
+    jpa:
+        hibernate:
+          ddl-auto: validate
+        database: mysql
+        show-sql: true
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.MySQL5Dialect
+

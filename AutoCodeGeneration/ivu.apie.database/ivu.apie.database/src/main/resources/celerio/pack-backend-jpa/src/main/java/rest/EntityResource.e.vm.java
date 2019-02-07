@@ -1,0 +1,222 @@
+$output.java($entity.rest)##
+
+#if($entity.hasUniqueBigIntegerAttribute())
+$output.require("java.math.BigInteger")##
+#end
+#if($entity.hasUniqueDateAttribute()||$entity.root.hasDatePk())
+$output.require("java.util.Date")##
+#end
+$output.require($entity.dto)##
+$output.require($entity.model)##
+$output.require($entity.root.primaryKey)##
+#foreach($enumAttribute in $entity.uniqueEnumAttributes.list)
+$output.require($enumAttribute)##
+#end
+
+
+$output.require($entity.repository)##
+$output.require($entity.dtoservice)##
+$output.require("java.util.List")##
+$output.require("java.net.URISyntaxException")##
+$output.require("java.net.URI")##
+$output.require("java.util.Optional")##
+
+$output.require("javax.inject.Inject")##
+
+$output.require("org.slf4j.LoggerFactory")##
+$output.require("org.slf4j.Logger")##
+
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.GET")##
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.POST")##
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.PUT")##
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.DELETE")##
+$output.require("org.springframework.web.bind.annotation.*")##
+$output.requireStatic("org.springframework.http.MediaType.APPLICATION_JSON_VALUE")##
+$output.require("org.springframework.http.ResponseEntity")##
+$output.require("org.springframework.web.bind.annotation.RequestBody")##
+$output.require("org.springframework.http.HttpHeaders")##
+$output.require("org.springframework.http.HttpStatus")##
+
+
+@RestController
+@RequestMapping("/api/${entity.model.vars}")
+public class $output.currentClass{
+
+    private final Logger log = LoggerFactory.getLogger(${output.currentClass}.class);
+
+    @Inject
+    private $entity.repository.type $entity.repository.var;
+    @Inject
+    private $entity.dtoservice.type $entity.dtoservice.var;
+#if($entity.hasCompositePk())
+$output.require("$entity.root.primaryKey.fullType")##
+$output.require("org.springframework.web.bind.WebDataBinder")##
+$output.require("java.beans.PropertyEditorSupport")##
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(${entity.root.primaryKey.type}.class, new PropertyEditorSupport() {
+            @Override
+            public String getAsText() {
+                return getValue().toString();
+            }
+
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(${entity.root.primaryKey.type}.fromString(text));
+            }
+        });
+    }
+#end
+
+    /**
+     * Create a new ${entity.model.type}.
+     */
+    @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.dto.type> create(@RequestBody $entity.dto.type $entity.dto.var) throws URISyntaxException {
+
+        log.debug("Create $entity.dto.type : {}", $entity.dto.var);
+
+        if (${entity.dto.var}.isIdSet()) {
+            return ResponseEntity.badRequest().header("Failure","Cannot create ${entity.model.type} with existing ID").body(null);
+        }
+
+        $entity.dto.type result = ${entity.dtoservice.var}.save($entity.dto.var);
+
+        return ResponseEntity.
+            created(new URI("/api/${entity.model.vars}/" + result.id)).
+            body(result);
+    }
+
+   /**
+    * Find by id ${entity.model.type}.
+    */
+    @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.dto.type> findById(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var) throws URISyntaxException {
+
+        log.debug("Find by id $entity.model.type : {}", $entity.root.primaryKey.var);
+
+        return Optional.ofNullable(${entity.dtoservice.var}.findOne($entity.root.primaryKey.var))
+            .map(${entity.dto.var} -> new ResponseEntity<>(${entity.dto.var}, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Update ${entity.model.type}.
+     */
+    @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.dto.type> update(@RequestBody $entity.dto.type $entity.dto.var) throws URISyntaxException {
+
+        log.debug("Update $entity.dto.type : {}", $entity.dto.var);
+
+        if (!${entity.dto.var}.isIdSet()) {
+            return create($entity.dto.var);
+        }
+
+        $entity.dto.type result = ${entity.dtoservice.var}.save($entity.dto.var);
+
+        return ResponseEntity.ok().body(result);
+    }
+#foreach ($attribute in $entity.fileAttributes.list)
+$output.require("org.springframework.web.multipart.MultipartFile")##
+$output.require("java.io.IOException")##
+$output.require("org.springframework.web.bind.annotation.RequestParam")##
+
+    /**
+     * Target url for ${attribute.var} file upload.
+     */
+    @RequestMapping(value = "/{id}/upload/${attribute.var}", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> ${attribute.var}FileUpload(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var, @RequestParam("$attribute.var") MultipartFile multipartFile) {
+
+        log.debug("File Upload: {}", multipartFile.getName());
+
+        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.root.primaryKey.var);
+
+        try {
+            ${entity.model.var}.${attribute.setter}(multipartFile.getBytes());
+        } catch (IOException ioe) {
+            // todo: appropriate status code
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+#if ($attribute.fileSize && $attribute.fileSize.isLong())
+        ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
+#else
+        // ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
+#end
+#if ($attribute.fileContentType)
+        ${entity.model.var}.${attribute.fileContentType.setter}(multipartFile.getContentType());
+#end
+#if ($attribute.filename)
+        ${entity.model.var}.${attribute.filename.setter}(multipartFile.getOriginalFilename());
+#end
+        ${entity.repository.var}.save($entity.model.var);
+
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * File download facility for ${attribute.var}.
+     */
+    @RequestMapping(value = "/{id}/download/${attribute.var}", method = GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> ${attribute.var}FileDownload(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var) {
+
+        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.root.primaryKey.var);
+
+#if ($attribute.filename)
+        log.debug("File Download: {}", ${entity.model.var}.${attribute.filename.getter}());
+#end
+        return ResponseEntity
+            .ok()
+#if ($attribute.fileContentType)
+            .header(HttpHeaders.CONTENT_TYPE, ${entity.model.var}.${attribute.fileContentType.getter}())
+#end
+#if ($attribute.filename)
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ${entity.model.var}.${attribute.filename.getter}() + "\"")
+#end
+#if ($attribute.fileSize && $attribute.fileSize.isLong())
+            .contentLength(${entity.model.var}.${attribute.fileSize.getter}())
+#end
+            .body(${entity.model.var}.${attribute.getter}());
+    }
+#end
+
+
+    /**
+     * Find a Page of $entity.model.type using query by example.
+     */
+    @RequestMapping(value = "/page", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<$entity.model.type>> findAll() throws URISyntaxException {
+        List<$entity.model.type> pageResponse = ${entity.dtoservice.var}.findAll();
+        return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    /**
+    * Auto complete support.
+    */
+   /* @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<$entity.dto.type>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
+
+        List<$entity.dto.type> results = ${entity.dtoservice.var}.complete(acq.query, acq.maxResults);
+
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
+    }*/
+
+    /**
+     * Delete by id ${entity.model.type}.
+     */
+    @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> delete(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var) throws URISyntaxException {
+
+        log.debug("Delete by id $entity.model.type : {}", $entity.root.primaryKey.var);
+
+        try {
+            ${entity.repository.var}.deleteById($entity.root.primaryKey.var);
+            return ResponseEntity.ok().build();
+        } catch (Exception x) {
+            // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+}
