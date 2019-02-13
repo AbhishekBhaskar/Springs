@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Meta data view</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<br><br>
+	<table class="table_display">
+
+				<tr th:each="user: ${users}">
+					<td th:text="${user.org_name}"></td>
+					<td th:text="${user.name}"></td>
+					<td th:text="${user.username}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.password}"></td>
+					<td th:text="${user.ph_no}"></td>
+					<td th:text="${user.domain}"></td>
+				</tr>
+			</table>
+
+			<br> <br>
+			
+				<table class="table_display">
+
+					<tr th:each="org: ${orgs}">
+						<td th:text="${org.code}"></td>
+						<td th:text="${org.name}"></td>
+						<td th:text="${org.country}"></td>
+						<td th:text="${org.ph_no}"></td>
+						<td th:text="${org.no_of_emps}"></td>
+						<td th:text="${org.profits}"></td>
+						<td th:text="${org.officeaddress}"></td>
+						<td th:text="${org.websiteurl}"></td>
+					</tr>
+				</table>  
+</body>
+</html>
