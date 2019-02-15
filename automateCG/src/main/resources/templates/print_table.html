@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Tables</title>
+<link rel="stylesheet" href="/style2.css" />
+<!-- <script src="/disp_header.js"></script>   -->
+</head>
+<body>
+
+
+	<div class="wrapper">
+
+		<div class="navbar">
+			<!-- 	<a href="#" class="nav_right">Add product</a>
+		<a href="#" class="nav_right">Register organizations</a>
+		<a href="#" class="nav_right">Register</a>
+		<a href="#" class="nav_right" style="margin-right:10px;">Login</a>    -->
+
+
+
+			<h1 style="text-align: center;">Automatic code generation</h1>
+			<h2 style="text-align: center;">This is an app which provides a
+				simple user interface for users to generate code automatically to
+				build a spring boot app</h2>
+
+		</div>
+		
+
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="/index">Index</a> 
+			 
+			
+		</div>
+		
+		<span style="font-size:30px;cursor:pointer;color:rgb(49, 75, 117)" onclick="openNav()" >&#9776; open</span>
+		
+
+		<div class="row top">
+
+
+
+			<table class="bgText">
+
+				<tr th:each="l: ${list}">
+					<!-- 		<td>
+				<form action="#" th:action="@{/all_tables}" id="f1" method="post"> 
+				<input type="checkbox" name="check" th:value="${l}"> 
+			  </form>  
+				</td>   -->
+
+					<td th:text="${l}"></td>
+
+					<td>
+						<form method="post" action="#" th:action="@{/metadata/__${l}__}">
+							<input type="submit" name="submit" value="View table properties"
+								onclick="myfn()" class="show_btn" />
+						</form>
+					</td>
+
+				</tr>
+			</table>
+
+			<!-- 	<table class="showTables">
+				<form action="#" th:action="@{/all_tables}" id="f1" method="post">
+					<tr th:each="l: ${list}">
+					<td><input type="checkbox" name="check" th:value="${l}"></td>
+					</tr>
+				</form>
+				
+			</table>  -->
+			<br>
+			<br>
+
+		</div>
+
+		<div class="row bottom">
+			<div class="column left">
+				<form method="post" th:action="@{/all_tables}" id="f2">
+					<table class="showTables">
+						<tr th:each="l2: ${list}">
+							<td><input type="checkbox" name="check" th:value="${l2}">
+							</td>
+							<td th:text="${l2}"></td>
+
+						</tr>
+					</table>
+				</form>
+			</div>
+
+
+			<div class="column right">
+				<h3>Select the checkboxes of the tables whose metadata you want
+					to view and click the button below</h3>
+				<input type="submit" name="submit" value="Click to see metadata"
+					form="f2" class="show_btn" />
+			</div>
+		</div>
+
+
+		<!--  	<div class="column right">
+		<br>
+		<h3>Select the checkboxes of the tables whose metadata you want to view and click the button below</h3><br>
+		
+				<input type="submit" name="submit" form="f1" value="Click here to see metadata" class="show_btn"/>
+		
+		</div>  -->
+	</div>
+	
+	<script>
+		
+	function openNav() {
+		  document.getElementById("mySidenav").style.width = "250px";
+		}
+
+		function closeNav() {
+		  document.getElementById("mySidenav").style.width = "0";
+		}
+	</script>
+</body>
+</html>
