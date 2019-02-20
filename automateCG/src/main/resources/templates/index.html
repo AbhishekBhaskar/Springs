@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Automate code generation</title>
+<link rel="stylesheet" href="/style2.css" />
+
+</head>
+<body>
+
+	<div class="navbar">
+		<!-- 	<a href="#" class="nav_right">Add product</a>
+		<a href="#" class="nav_right">Register organizations</a>
+		<a href="#" class="nav_right">Register</a>
+		<a href="#" class="nav_right" style="margin-right:10px;">Login</a>    -->
+
+
+		<h1 style="text-align: center;">Automatic code generation</h1>
+		<h2 style="text-align: center;">This is an app which provides a
+			simple user interface for users to generate code automatically to
+			build a spring boot app</h2>
+
+	</div>
+
+	<div class="wrapper">
+	<form method="get" action="#" th:action="@{/getTables/__${host}__}" style="margin-top:30px;margin-left:30px;">
+		<label style="font-family:Arial Black; color:rgb(49, 75, 117); text-shadow:1px 1px 2px grey;">Select host</label><br><br>
+		<select name="host">
+			<option value="localhost">Local instance</option>
+			<option value="10.16.35.127">test</option>
+		</select>
+		<br><br>
+		<input type="submit" name="submit" class="show_btn" />
+	</form>
+
+
+<!-- 		<form method="post" action="#" th:action="@{/getTables}" id="fm">
+
+			<br> <input type="submit" name="submit" class="show_btn"
+				value="Show available schemas" />
+		</form>
+		<br>
+
+		<form method="post" action="#" th:action="@{/show_info_schema}" id="fm">
+
+			<br> <input type="submit" name="submit" class="show_btn" value="Show infomation schema details" />
+		</form>   -->
+		<br> <br>
+
+		<table class="t_names">
+			<tr id="header">
+				<th>Name</th>
+			</tr>
+			<tr th:each="tbs: ${tb}">
+				<td th:text="${tbs}">Name</td>
+				<td>
+					<!--  <form method="get" action="#" th:action="@{/btn_action(name=${tbs})}">-->
+					<form method="get" action="#" th:action="@{/selectedSchema/__${tbs}__/__${host}__}">
+						<input type="submit" name="submit" value="View tables" class="edt" />
+					</form>
+				</td>
+			</tr>
+		</table>
+
+
+	</div>
+
+	<script type="text/javascript">
+		var model = document.getElementByClassName("navbar");
+		window.onclick = function(event) {
+			if (event.target == model) {
+				//location.replace("https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp");
+				alert("Working");
+			}
+		}
+	</script>
+</body>
+</html>
