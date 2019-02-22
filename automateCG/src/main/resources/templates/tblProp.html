@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Tables</title>
+<link rel="stylesheet" href="/style2.css" />
+<!-- <script src="/disp_header.js"></script>   -->
+</head>
+<body>
+
+
+	<div class="wrapper">
+
+		<div class="navbar">  
+		<!-- 	<a href="#" class="nav_right">Add product</a>
+		<a href="#" class="nav_right">Register organizations</a>
+		<a href="#" class="nav_right">Register</a>
+		<a href="#" class="nav_right" style="margin-right:10px;">Login</a>    -->
+
+		
+			
+				<h1 style="text-align:center;">Automatic code generation</h1>
+				<h2 style="text-align:center;">This is an app which provides a simple user interface for users to generate code automatically to build a spring boot app</h2>
+
+	</div>
+	
+	<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="/index">Index</a> 
+			 
+			
+		</div>
+		
+		<span style="font-size:30px;cursor:pointer;color:rgb(49, 75, 117)" onclick="openNav()" >&#9776; open</span>
+		<br><br>
+	
+		<div class="column left">
+			<table class="showTables">
+
+				<tr th:each="l: ${list}">
+			
+					<td th:text="${l}"></td>
+					
+					<td>
+						<form method="post" action="#" th:action="@{/metadata}">
+							<input type="submit" name="submit" value="View table properties" onclick="myfn()" class="show_btn"/>
+						</form>
+					</td>
+
+				</tr>
+			</table>
+		</div>
+
+		<div class="column right">
+			<br>
+			
+			<table>
+		<tr>
+			<th>Column name</th>
+			<th>Column size</th>
+			<th>Is nullable</th>
+			<th>Auto increment</th>
+			<th>Primary keys</th>
+			<th>Foreign keys</th>
+		</tr>
+		<tr>
+			<td>
+				<div style="font-family:Arial Black;color:rgb(69, 74, 81);text-shadow:2px 2px 2px grey;" th:each="cn: ${col_name}">
+					<p th:text="${cn}"></p>
+				</div>
+			</td>
+			<td>
+				<div th:each="cn: ${col_size}" style="font-family:Arial Black;color:rgb(69, 74, 81);text-shadow:2px 2px 2px grey;">
+					<p th:text="${cn}"></p>
+				</div>
+			</td>
+			<td>
+				<div th:each="cn: ${nullable}" style="font-family:Arial Black;color:rgb(69, 74, 81);text-shadow:2px 2px 2px grey;">
+					<p th:text="${cn}"></p>
+				</div>
+			</td>
+			<td>
+				<div th:each="cn: ${auto_incr}" style="font-family:Arial Black;color:rgb(69, 74, 81);text-shadow:2px 2px 2px grey;">
+					<p th:text="${cn}"></p>
+				</div>
+			</td>
+			<td>
+				<div th:each="cn: ${pk}" style="font-family:Arial Black;color:rgb(69, 74, 81);text-shadow:2px 2px 2px grey;">
+					<p th:text="${cn}"></p>
+				</div>
+			</td>
+			<td>
+				<div th:each="cn: ${fk}" style="font-family:Arial Black;color:rgb(69, 74, 81);text-shadow:2px 2px 2px grey;">
+					<p th:text="${cn}"></p>
+				</div>
+			</td>
+		</tr>
+	</table>
+			
+			<!-- <table class="table_display">
+
+				<tr th:each="user: ${users}">
+					<td th:text="${user.org_name}"></td>
+					<td th:text="${user.name}"></td>
+					<td th:text="${user.username}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.password}"></td>
+					<td th:text="${user.ph_no}"></td>
+					<td th:text="${user.domain}"></td>
+				</tr>
+			</table>
+
+			<br> <br>
+			
+				<table class="table_display">
+
+					<tr th:each="org: ${orgs}">
+						<td th:text="${org.code}"></td>
+						<td th:text="${org.name}"></td>
+						<td th:text="${org.country}"></td>
+						<td th:text="${org.ph_no}"></td>
+						<td th:text="${org.no_of_emps}"></td>
+						<td th:text="${org.profits}"></td>
+						<td th:text="${org.officeaddress}"></td>
+						<td th:text="${org.websiteurl}"></td>
+					</tr>
+				</table>    -->
+			<br><br>
+			<form action="#" th:action="@{/disp_tables}">
+			<input type="submit" name="submit" value="See table data" class="show_btn"/>
+			</form>
+		
+		</div>
+	</div>
+<script>
+		
+	function openNav() {
+		  document.getElementById("mySidenav").style.width = "250px";
+		}
+
+		function closeNav() {
+		  document.getElementById("mySidenav").style.width = "0";
+		}
+	</script>
+
+</body>
+</html>
