@@ -1,0 +1,255 @@
+<!-- <jdbc.url>jdbc:mysql://10.16.35.127:3306/apipost</jdbc.url> -->
+
+@ComponentScan({"com.jaxio.auto"})
+
+<database.name>practice</database.name>
+<database.host>localhost</database.host>
+<database.user>root</database.user>
+<database.password>Sairam@27</database.password>
+
+ <jdbc.url>jdbc:mysql://10.16.35.127:3306/apipost</jdbc.url>
+        <jdbc.user>root</jdbc.user>
+        <jdbc.password>password</jdbc.password>
+        <jdbc.catalog></jdbc.catalog>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <sql-maven-plugin.delimiter>;</sql-maven-plugin.delimiter>
+
+
+ <database.name>${project.name}</database.name>
+        
+<database.host>localhost</database.host>
+        
+<database.user>${project.name}</database.user>
+        
+<database.password>${project.name}</database.password>
+
+
+<jdbc.type>h2</jdbc.type>
+
+<jdbc.groupId>com.h2database</jdbc.groupId>
+        
+<jdbc.artifactId>h2</jdbc.artifactId>
+        
+<jdbc.version>1.4.190</jdbc.version>
+
+<jdbc.driver>org.h2.Driver</jdbc.driver>
+        
+<jdbc.url>jdbc:h2:~/.h2/${database.name};MVCC=TRUE;FILE_LOCK=NO</jdbc.url>
+        
+<jdbc.user>${database.user}</jdbc.user>
+        
+<jdbc.password>${database.password}</jdbc.password>
+        
+<jdbc.catalog></jdbc.catalog>
+        
+<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+        
+<sql-maven-plugin.delimiter>;</sql-maven-plugin.delimiter>
+
+/*
+		 * File f=new File(
+		 * "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\src\\main\\resources\\celerio\\pack-backend-jpa\\bootstrap\\pom.boot.vm.xml"
+		 * ); File f2=new File(
+		 * "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\src\\main\\resources\\celerio\\pack-backend-jpa\\src\\main\\java\\Application.p.vm.java"
+		 * ); String old=""; String old2="";
+		 * 
+		 * BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		 * BufferedReader reader=null; FileWriter writer = null;
+		 * 
+		 * BufferedReader reader2=null; FileWriter writer2 = null;
+		 * 
+		 * try { reader = new BufferedReader(new FileReader(f)); reader2 = new
+		 * BufferedReader(new FileReader(f2)); //Reading all the lines of input text
+		 * file into oldContent
+		 * 
+		 * String line = reader.readLine(); String line2 = reader2.readLine();
+		 * 
+		 * while (line != null) { old = old + line + System.lineSeparator(); line =
+		 * reader.readLine(); } String newContent=old.replace("*host_ip*",
+		 * host).replace("*schema_name*", schema_name).replace("*password*", password);
+		 * writer=new FileWriter(f); writer.write(newContent);
+		 * 
+		 * while(line2!=null) { old2 = old2 + line2 + System.lineSeparator(); line2 =
+		 * reader2.readLine(); } String pack_name=package_name+".*"; String
+		 * new2=old2.replaceAll("package_name", pack_name); writer2=new FileWriter(f2);
+		 * writer2.write(newContent);
+		 * 
+		 * } catch(IOException e) { e.printStackTrace(); }
+		 * 
+		 * finally { try { //Closing the resources
+		 * 
+		 * reader.close();
+		 * 
+		 * writer.close(); } catch (IOException e) { e.printStackTrace(); } }
+		 */
+
+
+https://o7planning.org/en/11765/spring-boot-file-download-example
+
+String link = "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\src\\main\\resources\\celerio\\pack-backend-jpa\\bootstrap\\pom.boot.vm.xml";
+
+String link2 = "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\src\\main\\resources\\celerio\\pack-backend-jpa\\src\\main\\java\\Application.p.vm.java";
+
+Process process = Runtime.getRuntime().exec("cmd.exe /c mvn clean install com.jaxio.celerio:bootstrap-maven-plugin:bootstrap", null, new File("C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database"));
+
+String link3 = "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\" + app_name + "\\pom.xml";
+
+Process process = Runtime.getRuntime().exec("cmd.exe /c mvn -Pmetadata,gen generate-sources", null, new File("C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\" + app_name));
+
+request.setAttribute("download_link","C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\" + app_name);
+
+File f=new File("C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\" + app_name);
+
+String link="C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\" + app_name;
+
+String OUTPUT_ZIP_FILE = "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\"+app_name+".zip";
+
+String SOURCE_FOLDER = "C:\\AutoCodeGeneration\\ivu.apie.database\\ivu.apie.database\\"+app_name;
+
+folders required:
+src/main/generated-java/**/domain/**/*.java
+src/main/generated-java/**/printer/**/*.java
+src/main/generated-java/**/repository/**/*.java
+src/main/resources/localization/domain/*.xml
+src/main/sql/h2/generated/*.sql
+
+<dependency>
+                                <groupId>com.hm.ivu.apie</groupId>
+                                <artifactId>ivu.apie.database</artifactId>
+                                <version>1.0.0</version>
+                            </dependency>
+
+
+<!-- 	<table style="text-align: center; margin: auto;">
+			<tr>
+				<th>Table name</th>
+				<th>Column name</th>
+				<th>Column size</th>
+				<th>Is nullable</th>
+				<th>Auto increment</th>
+				<th>Primary keys</th>
+				<th>Foreign keys</th>
+				<th>Parent Primary key</th>
+				<th>Parent primary key table</th>
+			</tr>
+			<tr>   -->
+		<!-- 		<td>
+				<div th:each="i,prodStat:${table_name} " th:class="${prodStat.odd}? 'odd'" >
+					<div th:each="j:${i}">
+					<p th:text="${j}"></p>
+					</div>
+				</div>
+			</td>		
+			<td>
+				<div th:each="i,prodStat:${col_name}" th:class="${prodStat.odd}? 'odd'">
+					<div th:each="j:${i}">
+					<p th:text="${j}"></p>
+					</div>
+				</div>
+			</td>
+			<td>
+				<div th:each="i,prodStat:${col_size}" th:class="${prodStat.odd}? 'odd'">
+					<div th:each="j:${i}">
+					<p th:text="${j}"></p>
+					</div>
+				</div>
+			</td>    -->
+
+		<!-- 		<td>
+					<div th:each="i:${table_name}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${col_name}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${col_size}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${nullable}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${auto_incr}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${pk}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${fk}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${pk_fk}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div th:each="i:${pk_table}"
+						style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;">
+						<div th:each="j:${i}">
+							<p th:text="${j}"></p>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>   -->
+
+		<!-- <table>
+	<tr>
+	<th>data</th>
+	</tr>
+		<tr th:each="dd : ${table_data}">
+			<td th:text="${dd}" />
+			
+		</tr>
+	</table> -->
+
+		<!-- 	<table class="showTables">
+		<tr th:each="l:${checkedList}">
+			<td th:text="${l}"></td>
+		</tr>
+	</table>   -->
+
+		<!-- 	<table>
+		<tr th:each="i:${table_data}">
+			<td th:text="${i}"></td>
+		</tr>
+	</table>   -->
+
+https://escholarship.org/uc/item/79m5v4jz#section.1.2
