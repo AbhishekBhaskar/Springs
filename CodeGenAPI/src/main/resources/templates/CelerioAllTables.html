@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Table Metadata</title>
+<link rel="stylesheet" href="/Cstyle.css" />
+</head>
+<body>
+	<div class="wrapper">
+		<div class="navbar">
+			<!-- 	<a href="#" class="nav_right">Add product</a>
+		<a href="#" class="nav_right">Register organizations</a>
+		<a href="#" class="nav_right">Register</a>
+		<a href="#" class="nav_right" style="margin-right:10px;">Login</a>    -->
+
+
+
+			<h1 style="text-align: center;">Automatic code generation</h1>
+			<h2 style="text-align: center;">This is an app which provides a
+				simple user interface for users to generate code automatically to
+				build a spring boot app</h2>
+
+		</div>
+
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="/index">Index</a>
+
+
+		</div>
+
+		<span
+			style="font-size: 30px; cursor: pointer; color: rgb(49, 75, 117)"
+			onclick="openNav()">&#9776; open</span> <br> <br>
+		
+	
+<div class="column left">
+
+		<div th:each="i,iindex:${table_data}">
+			<!-- 	<div th:each="m,mindex : ${nameList[0]}">	<h2 th:text="${m}"/>   -->
+			<!-- 		<p th:text="${m}"></p>   -->
+
+			<span th:each="n:${i[0]}" style="text-align:center;margin-left:25%;">
+			<h2 style="font-family:Arial Black;color:rgb(49, 75, 117);text-shadow:2px 2px 2px grey;text-align:center;margin:auto;display:inline;">TableName: </h2>
+				<h2 th:text="${n.get('Table_Name')}" style="font-family:Arial Black;color:rgb(49, 75, 117);text-shadow:2px 2px 2px grey;text-align:center;margin:auto;display:inline;"></h2>
+			</span>
+<br><br>
+			<table style="text-align: center; margin: auto">
+				<tr>
+					<th>Column Name</th>
+					<th>Data Type</th>
+					<th>Nullable</th>
+					<th>Key Type</th>
+					<th>Extra</th>
+				</tr>
+				<div th:each="j:${i}">
+
+					<div th:each="k,kindex:${j}">
+						<tr>
+							<td>
+								<p th:text="${k.get('Column_Name')}"
+									style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;"></p>
+							</td>
+							<td>
+								<p th:text="${k.get('Type')}"
+									style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;"></p>
+							</td>
+							<td>
+								<p th:text="${k.get('Null')}"
+									style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;"></p>
+							</td>
+							<td>
+								<p th:text="${k.get('Key')}"
+									style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;"></p>
+							</td>
+							<td>
+								<p th:text="${k.get('Extra')}"
+									style="font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;"></p>
+							</td>
+						</tr>
+					</div>
+				</div>
+			</table>
+			<br>
+			<br>
+		</div>
+		
+	</div>
+	
+	<div id="loader"></div>
+	
+	<div class="column right" style="width:40%;background-color:rgba(0,0,0,0.1);padding:0 0 30px 30px;">
+	
+	<br><br>
+	 	<form method="post" id="myForm2" th:action="@{/generate/__${schema_name}__/__${host}__}" onsubmit="myFunction()">
+	 		<label style="font-family:Arial Black;color:rgb(49, 75, 117);text-shadow:2px 2px 2px grey;">Enter name of applicaion:</label><br>
+	 		<input type="text" name="app_name" placeholder="application name"/><br><br>
+	 		<label style="font-family:Arial Black;color:rgb(49, 75, 117);text-shadow:2px 2px 2px grey;">Enter name of package:</label><br>
+	 		<input type="text" name="package_name" placeholder="Ex: com.test"/><br><br>
+			<input type="submit" name="submit" value="Generate code" class="show_btn"/>
+		</form>   
+		
+		<p style="display:none; font-family: Arial Black; color: rgb(69, 74, 81); text-shadow: 2px 2px 2px grey;margin: 5% auto 15% auto;" id="demo">Loading, please wait...</p>
+	</div>
+
+	<!-- 	<form method="post" th:action="@{/exec}">
+			<input type="submit" name="submit" value="Generate code" class="show_btn"/>
+		</form> -->
+	
+	</div>
+	
+
+	<script>
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "250px";
+		}
+		function closeNav() {
+			document.getElementById("mySidenav").style.width = "0";
+		}
+		
+		function loadFn()
+		{
+			
+			document.getElementById("demo").style.display="block";
+			//document.forms["myForm2"].submit();
+			
+		}
+		
+		var myVar;
+
+		function myFunction() {
+		  document.getElementById("loader").style.display = "block";
+		  myVar = setTimeout(showPage, infinite);
+		}
+		
+		function showPage() {
+			  document.getElementById("loader").style.display = "none";
+			  
+			}
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="wrapper">
+	<form method="post" th:action="@{/selectProject}">
+		<label>Select the type of database you want to use</label><br>
+		<select name="selectedDB">
+			<option value="mysql">MySql</option>
+			<option value="cassandra">Cassandra</option>
+		</select><br><br>
+		<input type="submit" name="submit" />
+	</form>
+</div>
+</body>
+</html>
