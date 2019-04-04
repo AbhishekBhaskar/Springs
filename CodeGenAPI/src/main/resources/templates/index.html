@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Auto Code Generation</title>
+<link rel="stylesheet" href="/style2.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="banner">
+	<h1 style="text-align: center;padding-top: 5px;margin-top:0;">Automatic code generation</h1>
+</div>
+
+<div class="wrapper">
+<div class="leftColumn">
+	<p class="styleText">
+	<b>
+		Auto Code Generation is a project which allows the user to generate and download the required Java packages and classes automatically
+		using different API's. It allows the user to select the type of database i.e RDBMS or NoSQL databases namely MySql and Cassandra based
+		on his requirement.
+	</b>
+	</p>
+</div>
+
+<div class="rightColumn">
+<img src="/avatar.jfif" class="image" />
+<br>
+
+	<form method="post" th:action="@{/selectProject}">
+		<label class="styleText2"><b>Select the type of database you want to use</b></label><br>
+		<div class="selectInput">
+		<select name="selectedDB">
+			<option value="mysql">MySql</option>
+			<option value="cassandra">Cassandra</option>
+		</select>
+		</div>
+		
+		<br>
+		<input type="submit" name="submit" />
+	</form>
+</div>
+</div>
+</body>
+</html>
