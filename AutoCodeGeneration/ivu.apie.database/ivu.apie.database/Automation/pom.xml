@@ -56,7 +56,7 @@
         <celerio-maven-plugin.version>4.0.23</celerio-maven-plugin.version>
         <hibernate.version>5.0.2.Final</hibernate.version>
         <spring.version>4.2.2.RELEASE</spring.version>
-        <spring-security.version>4.0.2.RELEASE</spring-security.version>
+        <spring-security.version>5.3.3.RELEASE</spring-security.version>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- Variables substituted in resources file at build time -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
